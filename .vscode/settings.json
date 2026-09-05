@@ -1,13 +1,16 @@
 {
-  "java.project.sourcePaths": [
-    "android/app/src/main/java"
+  "java.import.gradle.enabled": true,
+  "java.import.gradle.wrapper.enabled": true,
+  "java.import.gradle.version": "8.14.3",
+  "java.import.gradle.java.home": "/home/gaurav/study/tools/jdk-21",
+  "java.import.gradle.user.home": "/home/gaurav/.gradle",
+  "java.import.exclusions": [
+    "**/node_modules/**",
+    "**/www/**",
+    "**/dist/**",
+    "**/scratch/**"
   ],
-  "java.project.referencedLibraries": [
-    "/home/gaurav/study/tools/android-sdk/platforms/android-36/android.jar",
-    "/home/gaurav/study/tools/android-sdk/platforms/android-34/android.jar",
-    "node_modules/@capacitor/android/capacitor/src/main/java",
-    "/home/gaurav/.gradle/caches/8.14.3/transforms/7e62daffb6e531dce596dee67251ef1e/transformed/core-1.17.0-runtime.jar"
-  ],
-  "java.configuration.updateBuildConfiguration": "automatic",
-  "java.import.gradle.java.home": "/home/gaurav/study/tools/jdk-21"
+  "files.exclude": {
+    "**/node_modules": true
+  }
 }
