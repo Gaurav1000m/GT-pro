@@ -23,9 +23,8 @@
           localStorage.setItem('theme', 'dark');
         }
         document.documentElement.setAttribute('data-theme', theme);
-        var splashShown = sessionStorage.getItem('studyWithGauravSplashShown') === 'true';
         var skipSplash = new URLSearchParams(window.location.search).get('skipSplash') === 'true';
-        if (splashShown || skipSplash) {
+        if (skipSplash) {
           document.documentElement.classList.add('splash-already-shown');
         }
       } catch (e) {

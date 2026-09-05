@@ -1850,8 +1850,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==================== 1. SPLASH SCREEN LOGIC ====================
-  const hasSeenSplashSession = sessionStorage.getItem('studyWithGauravSplashShown') === 'true';
-
   function hideSplashScreenImmediate() {
     if (!splashScreen) return;
     document.documentElement.classList.add('splash-already-shown');
@@ -1863,7 +1861,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function hideSplashScreen() {
     if (!splashScreen || splashScreen.classList.contains('hide')) return;
-    sessionStorage.setItem('studyWithGauravSplashShown', 'true');
     document.documentElement.classList.add('splash-already-shown');
     splashScreen.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s ease';
     splashScreen.style.opacity = '0';
@@ -1891,10 +1888,28 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(hideSplashScreen, 3000);
   }
 
-  if (shouldSkipSplash || hasSeenSplashSession) {
+  if (shouldSkipSplash) {
     hideSplashScreenImmediate();
   } else {
-    sessionStorage.setItem('studyWithGauravSplashShown', 'true');
+    if (splashScreen) {
+      document.documentElement.classList.remove('splash-already-shown');
+      splashScreen.classList.remove('hide');
+      splashScreen.style.display = 'flex';
+      splashScreen.style.opacity = '1';
+      splashScreen.style.visibility = 'visible';
+      const logoRow = splashScreen.querySelector('.splash-logo-row');
+      if (logoRow) {
+        logoRow.style.animation = 'none';
+        void logoRow.offsetWidth; // trigger reflow
+        logoRow.style.animation = 'splashZoomInOut 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
+      }
+    }
+    // Dismiss native splash screen once web splash screen is ready to take over
+    if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.SplashScreen) {
+      try {
+        window.Capacitor.Plugins.SplashScreen.hide();
+      } catch (e) {}
+    }
     setTimeout(hideSplashScreen, 3000);
   }
 
@@ -3066,7 +3081,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (targetScreen && targetScreen !== 'home') {
-        hideSplashScreenImmediate();
         if (targetScreen === 'explore' && targetCategory) {
           openCategoryExplore(targetCategory, false);
         } else {
@@ -3128,10 +3142,10 @@ document.addEventListener('DOMContentLoaded', () => {
     saveAppStateBeforeNavigation();
   });
 
-  // Handle pageshow (including Safari/Chrome bfcache restores)
+  // Handle pageshow (only restore and hide splash on Safari/Chrome bfcache restores)
   window.addEventListener('pageshow', (event) => {
-    hideSplashScreenImmediate();
     if (event.persisted) {
+      hideSplashScreenImmediate();
       restorePreviousState();
     }
   });
@@ -3153,10 +3167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   } else {
     // Restore previous state if returning from external website
-    const wasRestored = restorePreviousState();
-    if (wasRestored) {
-      hideSplashScreenImmediate();
-    }
+    restorePreviousState();
   }
 
   if (shouldOpenDrawer) {
