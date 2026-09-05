@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Study With Gaurav PRO - Modern Learning Platform</title>
+  <meta name="description" content="Study With Gaurav - Premium educational platform for competitive exams, live classes, recently visited courses, and interactive notes.">
+  
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- Early state & theme detection to guarantee initial Dark UI mode -->
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('studyWithGauravTheme') || localStorage.getItem('theme');
+        var theme = savedTheme ? savedTheme : 'dark';
+        // Strictly set dark theme if not already customized
+        if (!savedTheme) {
+          localStorage.setItem('studyWithGauravTheme', 'dark');
+          localStorage.setItem('theme', 'dark');
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+        var splashShown = sessionStorage.getItem('studyWithGauravSplashShown') === 'true';
+        var skipSplash = new URLSearchParams(window.location.search).get('skipSplash') === 'true';
+        if (splashShown || skipSplash) {
+          document.documentElement.classList.add('splash-already-shown');
+        }
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <!-- DotLottie Player Component -->
+  <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+</head>
+<body>
+
+  <!-- ==================== 1. SPLASH SCREEN ==================== -->
+  <div id="splash-screen" class="splash-screen" role="dialog" aria-label="Loading Study With Gaurav">
+    <div class="splash-ambient-glow" aria-hidden="true"></div>
+    <div class="splash-content">
+      <div class="splash-logo-row" id="splash-logo-row">
+        <img src="logo.png" alt="Study With Gaurav Logo" class="splash-logo">
+        <span class="pro-badge splash-pro-badge" id="splash-theme-badge">PRO</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PULL TO REFRESH INDICATOR ==================== -->
+  <div id="ptr-indicator" class="ptr-indicator" aria-hidden="true">
+    <div class="ptr-content">
+      <div class="ptr-icon-box">
+        <svg class="ptr-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+        <div class="ptr-spinner" style="display: none;">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity="0.25"></circle>
+            <path d="M12 3a9 9 0 0 1 9 9" stroke="currentColor" stroke-linecap="round"></path>
+          </svg>
+        </div>
+      </div>
+      <span class="ptr-text" id="ptr-text">Pull to refresh</span>
+    </div>
+  </div>
+
+  <!-- ==================== SPLASH-STYLE REFRESH LOADING SCREEN ==================== -->
+  <div id="refresh-loading-screen" class="refresh-loading-screen" role="status" aria-label="Refreshing Study With Gaurav" style="display: none;">
+    <div class="splash-ambient-glow" aria-hidden="true"></div>
+    <div class="splash-content">
+      <div class="splash-logo-row refresh-logo-row" id="refresh-logo-row">
+        <img src="logo.png" alt="Study With Gaurav Logo" class="splash-logo">
+        <span class="pro-badge splash-pro-badge" id="refresh-theme-badge">PRO</span>
+      </div>
+      <div class="refresh-status-row">
+        <div class="refresh-pulse-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="refresh-label"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN APPLICATION WRAPPER ==================== -->
+  <div class="app-shell" id="app-shell">
+    
+    <!-- Top Ambient Accent Glow -->
+    <div class="top-ambient-glow" aria-hidden="true"></div>
+
+    <!-- ==================== 2. TOP HEADER ==================== -->
+    <!-- ==================== 2. TOP HEADER ==================== -->
+    <header class="app-header" id="app-header">
+      <div class="header-container">
+        <!-- Header Top Row: Brand Logo (Tap to Toggle Theme) + PRO/LIGHT Badge & Flame Streak Pill -->
+        <div class="header-top-row">
+          <div class="brand-link" id="brand-home-link">
+            <img src="assets/logo.png" alt="Study With Gaurav Logo (Tap to switch Light/Dark theme)" class="brand-logo" id="brand-logo-theme-toggle" role="button" tabindex="0" title="Tap logo to switch Light/Dark Mode" aria-label="Toggle light and dark theme">
+            <span class="pro-badge" id="theme-status-badge">PRO</span>
+          </div>
+
+          <!-- Header Right: Streak & XP Pill with Flame Emoji / Icon Badge -->
+          <div class="header-xp-pill header-streak-pill" id="header-streak-pill" role="button" tabindex="0" title="Daily Streak Active • Tap to view streak rewards" aria-label="Daily learning streak">
+            <div class="streak-flame-badge" aria-hidden="true">
+              <svg class="flame-svg" viewBox="0 0 24 24" width="20" height="20">
+                <defs>
+                  <linearGradient id="flameGradBadge" x1="0%" y1="100%" x2="0%" y2="0%">
+                    <stop offset="0%" stop-color="#ea580c"/>
+                    <stop offset="45%" stop-color="#f97316"/>
+                    <stop offset="100%" stop-color="#facc15"/>
+                  </linearGradient>
+                </defs>
+                <path fill="url(#flameGradBadge)" d="M12 2C10.6 4.3 10 5.8 10 7.3C10 8.7 11 9.8 11.5 10.7C8.2 8.7 7 5.8 7 5.8C5 8.7 5 11.7 6.4 14.2C7.9 16.7 10.4 17.7 12 17.7C13.6 17.7 16.1 16.7 17.6 14.2C19 11.7 19 8.7 17 5.8C17 5.8 15.8 8.7 12.5 10.7C13 9.8 14 8.7 14 7.3C14 5.8 13.4 4.3 12 2Z"/>
+              </svg>
+            </div>
+            <span class="streak-number-value" id="header-streak-value">1</span>
+          </div>
+        </div>
+
+        <!-- 3. SEARCH BAR IN UPPER HEADER -->
+        <div class="search-section">
+          <div class="search-input-container">
+            <button type="button" class="search-submit-btn" id="search-submit-btn" aria-label="Search websites and categories">
+              <svg class="search-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+            <input type="search" id="subject-search-input" class="search-input" placeholder="Search websites or categories..." autocomplete="off" aria-label="Search">
+            <button id="clear-search-btn" class="clear-search-btn" aria-label="Clear search query" style="display: none;">✕</button>
+          </div>
+
+          <!-- Quick Category Suggestions Popover -->
+          <div class="search-suggestions-dropdown" id="search-suggestions-dropdown" style="display: none;">
+            <div class="suggestions-header">
+              <span class="suggestions-title">Suggested Categories</span>
+              <span class="suggestions-hint">Tap to explore</span>
+            </div>
+            <div class="suggestions-chips-row" id="suggestions-chips-container">
+              <!-- Dynamically populated from categoriesData -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. CATEGORY / FILTER CONTROLS & CHIPS IN UPPER HEADER (FILTER | NDA | CDS | AFCAT) -->
+        <div class="filter-controls-row">
+          <!-- Filter Button (Triggers Left Sidebar Drawer) -->
+          <button id="open-category-filter-btn" class="category-filter-trigger-btn" aria-label="Open Filters" title="Filter Categories">
+            <svg class="sliders-icon" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="2" y1="6" x2="11" y2="6"></line>
+              <line x1="15" y1="6" x2="18" y2="6"></line>
+              <circle cx="13" cy="6" r="1.8" fill="currentColor"></circle>
+              <line x1="2" y1="14" x2="5" y2="14"></line>
+              <line x1="9" y1="14" x2="18" y2="14"></line>
+              <circle cx="7" cy="14" r="1.8" fill="currentColor"></circle>
+            </svg>
+            <svg class="chevron-down-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+
+          <!-- Horizontal Category Chips: EXACT ORDER: NDA | CDS | AFCAT -->
+          <div class="chips-scroll-track" id="category-chips-track" role="tablist" aria-label="Category Filters">
+            <button class="filter-chip active" data-filter="NDA" role="tab" aria-selected="true">NDA</button>
+            <button class="filter-chip" data-filter="CDS" role="tab" aria-selected="false">CDS</button>
+            <button class="filter-chip" data-filter="AFCAT" role="tab" aria-selected="false">AFCAT</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== MAIN CONTENT AREA (SPA VIEWS) ==================== -->
+    <main class="main-content" id="main-content">
+      
+      <!-- ==================== VIEW 1: HOME ==================== -->
+      <section id="view-home" class="view-panel active-panel" aria-label="Home Dashboard">
+        <div class="content-container">
+
+          <!-- 5. HERO SLIDER -->
+          <section class="hero-slider-section" aria-label="Featured Course Carousel">
+            <div class="hero-carousel-wrapper" id="hero-carousel">
+              <div class="hero-carousel-viewport" id="hero-viewport">
+                <!-- Slides Track (Smooth horizontal transform: translateX) -->
+                <div class="hero-slides-track" id="hero-slides-container">
+                  <!-- Fallback Slide 1: Physics Wallah -->
+                  <article class="hero-slide active" data-index="0" role="tabpanel" aria-label="Physics Wallah">
+                    <div class="hero-card">
+                      <div class="hero-card-blur-bg" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/76/Physics_wallah_logo.jpg');"></div>
+                      <div class="hero-card-scrim"></div>
+                      <h2 class="hero-slide-title">Physics Wallah</h2>
+                      <div class="hero-category-logo-wrap">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Physics_wallah_logo.jpg" alt="Physics Wallah Logo" class="hero-category-logo-img" />
+                      </div>
+                      <div class="hero-slide-spacer"></div>
+                      <button class="hero-watch-btn" type="button" data-title="Physics Wallah" aria-label="Explore Physics Wallah Now">Explore Now</button>
+                    </div>
+                  </article>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- 5b. ALL CATEGORIES RECTANGULAR BOXES (LOGO, NAME, ARROW ICON) -->
+          <section class="categories-bar-section" id="categories-bar-section" aria-label="Categories Selection">
+            <div class="section-title-bar">
+              <h2 class="section-heading">Categories</h2>
+              <span class="category-count-badge" id="category-count-pill">All Topics</span>
+            </div>
+            <div class="categories-rect-grid" id="categories-rect-container">
+              <!-- Dynamically populated long rectangular category boxes with logo, name, arrow icon -->
+            </div>
+          </section>
+
+          <!-- SEARCH RESULTS SECTION -->
+          <section class="search-results-section" id="search-results-section" aria-label="Search Results" style="display: none; padding-bottom: 40px;">
+            <div class="section-title-bar">
+              <h2 id="search-results-title" class="section-heading">Search Results</h2>
+              <span class="category-count-badge" id="search-count-pill" style="display: none;">0</span>
+            </div>
+            <div class="allapps-cards-grid" id="search-cards-container"></div>
+            <div class="recent-empty-state" id="search-empty-state" style="display: none;">
+              <div class="empty-icon-box">🔍</div>
+              <h3 class="empty-title">No matching websites</h3>
+              <p class="empty-subtitle">Try adjusting your search query.</p>
+            </div>
+          </section>
+
+        </div>
+      </section>
+
+      <section id="view-explore" class="view-panel" style="display: none;" aria-label="Explore Category">
+        <div class="content-container">
+          <div class="explore-page-custom-header">
+            <button id="explore-page-back-btn" class="explore-page-back-btn" type="button" aria-label="Go back one step to Home">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+            </button>
+            <h2 id="explore-page-cat-name" class="explore-page-title">Explore</h2>
+            <span class="category-count-badge" id="explore-count-pill" style="display: none;">0</span>
+          </div>
+
+          <!-- Cards Grid (Exact allapps.cfd card layout) -->
+          <div class="allapps-cards-grid" id="explore-cards-grid" style="margin-top: 30px;">
+            <!-- Dynamically populated with allapps.cfd exact card UI -->
+          </div>
+
+          <!-- Empty State -->
+          <div class="recent-empty-state" id="explore-empty-state" style="display: none;">
+            <div class="empty-icon-box">📚</div>
+            <h3 class="empty-title">No platforms found</h3>
+            <p class="empty-subtitle">Please select another category or check back later.</p>
+            <button class="empty-action-btn" id="explore-empty-back-btn" type="button">Browse Categories</button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 2: DONATION & SUPPORT ==================== -->
+      <section id="view-donation" class="view-panel donation-page" style="display: none;" aria-label="Support Study With Gaurav">
+        <div class="content-container">
+          <div class="donation-screen-container">
+
+            <!-- 1. HERO SECTION -->
+            <header class="donation-hero">
+              <span class="donation-badge-pill" role="status">
+                <span class="donation-badge-dot" aria-hidden="true"></span>
+                SUPPORT THE PROJECT
+              </span>
+              <h1 class="donation-main-heading">Support Our App ❤️</h1>
+              <p class="donation-sub-heading">
+                Help us keep the platform running and continue building better features for students.
+              </p>
+            </header>
+
+            <!-- 2. MAIN DONATION CONTAINER (Responsive 2-col on desktop, single-col on mobile) -->
+            <div class="donation-card-unified">
+
+              <!-- Left Column: Scan & Donate + QR Card -->
+              <div class="donation-qr-column">
+                <div class="donation-scan-header">
+                  <h2 class="donation-scan-title">Scan &amp; Donate</h2>
+                  <p class="donation-scan-subtitle">Scan the QR code with any supported UPI app</p>
+                </div>
+
+                <!-- Scanner Viewfinder Box with 4 Corner Brackets -->
+                <div class="qr-scanner-box">
+                  <span class="scanner-corner corner-top-left" aria-hidden="true"></span>
+                  <span class="scanner-corner corner-top-right" aria-hidden="true"></span>
+                  <span class="scanner-corner corner-bottom-left" aria-hidden="true"></span>
+                  <span class="scanner-corner corner-bottom-right" aria-hidden="true"></span>
+
+                  <div class="qr-code-frame">
+                    <img
+                      src="assets/donation-qr.jpg"
+                      alt="UPI QR code for supporting Study With Gaurav"
+                      class="qr-code-image"
+                      onerror="this.onerror=null; this.src='https://i.ibb.co/DfprTLvL/6059828182258487863.jpg';"
+                    />
+                  </div>
+                </div>
+
+                <!-- Supported UPI Apps Row with Official Logos -->
+                <div class="supported-upi-pills" aria-label="Supported UPI Apps">
+                  <span class="upi-app-pill" title="Google Pay">
+                    <img src="assets/upi/gpay.svg" class="upi-brand-logo" alt="Google Pay" />
+                  </span>
+                  <span class="upi-app-pill" title="PhonePe">
+                    <img src="assets/upi/phonepe.svg" class="upi-brand-logo" alt="PhonePe" />
+                  </span>
+                  <span class="upi-app-pill" title="Paytm">
+                    <img src="assets/upi/paytm.svg" class="upi-brand-logo" alt="Paytm" />
+                  </span>
+                  <span class="upi-app-pill" title="CRED">
+                    <img src="assets/upi/cred.svg" class="upi-brand-logo" alt="CRED" />
+                  </span>
+                  <span class="upi-app-pill" title="BHIM">
+                    <img src="assets/upi/bhim.svg" class="upi-brand-logo" alt="BHIM" />
+                  </span>
+                </div>
+              </div>
+
+              <!-- Right Column: UPI ID Box + Amount Selector + Open UPI App -->
+              <div class="donation-info-column">
+                
+                <!-- Modern Sleek UPI ID Card -->
+                <div class="upi-id-box" role="region" aria-label="UPI Payment Details">
+                  <div class="upi-id-header">
+                    <div class="upi-id-badge-wrap">
+                      <span class="upi-id-icon-circle" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <rect x="2" y="5" width="20" height="14" rx="3"></rect>
+                          <line x1="2" y1="10" x2="22" y2="10"></line>
+                        </svg>
+                      </span>
+                      <span class="upi-id-label">OFFICIAL UPI ID</span>
+                    </div>
+                    <span class="upi-verified-badge">
+                      <svg viewBox="0 0 20 20" width="13" height="13" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      Verified
+                    </span>
+                  </div>
+                  <div class="upi-id-surface">
+                    <span class="upi-id-string" id="upi-id-text">gauraveducation@fam</span>
+                    <button
+                      type="button"
+                      class="donation-copy-btn"
+                      id="copy-upi-btn"
+                      aria-label="Copy UPI ID to clipboard"
+                    >
+                      <svg class="copy-svg-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                      </svg>
+                      <span id="copy-btn-text">Copy UPI ID</span>
+                    </button>
+                  </div>
+                  <!-- Screen Reader Live Status -->
+                  <div id="copy-live-announcer" class="sr-only" aria-live="polite"></div>
+                </div>
+
+                <!-- Choose Contribution Amount (Tactile Segmented Selector) -->
+                <div class="donation-tier-section">
+                  <span class="donation-tier-label">Choose Contribution Amount</span>
+                  <div class="donation-tier-grid" id="donation-amount-grid" role="group" aria-label="Contribution tiers">
+                    <button type="button" class="native-segment-chip" data-amount="51">₹51</button>
+                    <button type="button" class="native-segment-chip active" data-amount="101" aria-pressed="true">₹101</button>
+                    <button type="button" class="native-segment-chip" data-amount="251">₹251</button>
+                    <button type="button" class="native-segment-chip" data-amount="501">₹501</button>
+                    <button type="button" class="native-segment-chip" data-amount="1001">₹1001</button>
+                  </div>
+                </div>
+
+                <!-- Secondary Action: Open UPI App Intent -->
+                <a
+                  href="upi://pay?pa=gauraveducation@fam&pn=Study%20With%20Gaurav&am=101&cu=INR"
+                  class="open-upi-btn"
+                  id="direct-upi-pay-btn"
+                  aria-label="Open UPI app on your device"
+                >
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                  <span>Open UPI App</span>
+                </a>
+
+                <p class="donation-note-text">
+                  <span>🔒 Direct P2P transfer • 100% of contributions directly support student infrastructure.</span>
+                </p>
+
+              </div>
+            </div>
+
+            <!-- 3. SUPPORT BREAKDOWN ("Where Your Support Goes") -->
+            <section class="support-breakdown-section" aria-labelledby="support-breakdown-title">
+              <h2 class="support-breakdown-title" id="support-breakdown-title">Where Your Support Goes</h2>
+              <div class="support-grid">
+                
+                <div class="support-item">
+                  <div class="support-icon-wrap" aria-hidden="true">🖥️</div>
+                  <div class="support-item-content">
+                    <h3 class="support-item-title">Server</h3>
+                    <p class="support-item-desc">Help keep the app's backend and hosting running.</p>
+                  </div>
+                </div>
+
+                <div class="support-item">
+                  <div class="support-icon-wrap" aria-hidden="true">🌐</div>
+                  <div class="support-item-content">
+                    <h3 class="support-item-title">Domain</h3>
+                    <p class="support-item-desc">Help cover domain and related web infrastructure costs.</p>
+                  </div>
+                </div>
+
+                <div class="support-item">
+                  <div class="support-icon-wrap" aria-hidden="true">🛠️</div>
+                  <div class="support-item-content">
+                    <h3 class="support-item-title">Maintenance</h3>
+                    <p class="support-item-desc">Support bug fixes, updates, security, and maintenance.</p>
+                  </div>
+                </div>
+
+                <div class="support-item">
+                  <div class="support-icon-wrap" aria-hidden="true">🚀</div>
+                  <div class="support-item-content">
+                    <h3 class="support-item-title">New Features</h3>
+                    <p class="support-item-desc">Help us build useful new features and improve the experience.</p>
+                  </div>
+                </div>
+
+              </div>
+            </section>
+
+            <!-- 4. THANK-YOU SECTION -->
+            <footer class="donation-thank-you">
+              <div class="thank-you-badge">Every contribution matters ❤️</div>
+              <h3 class="thank-you-title">Thank You ❤️</h3>
+              <p class="thank-you-desc">
+                Supporting the app helps us keep it online, maintain the infrastructure, and continue improving it.
+              </p>
+            </footer>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 3: LIBRARY (SAVED & BOOKMARKS) ==================== -->
+      <section id="view-library" class="view-panel" style="display: none;" aria-label="Library &amp; Saved Resources">
+        <div class="content-container">
+          
+
+          <!-- All Saved Cards in Responsive Grid -->
+          <div class="allapps-cards-grid" id="saved-items-container">
+            <!-- Dynamically populated with allapps cards -->
+          </div>
+
+          <!-- Empty State for Library (Only Requested Animation Showing) -->
+          <div class="saved-empty-state" id="saved-empty-state" style="display: none;">
+            <div class="empty-lottie-wrapper">
+              <dotlottie-player
+                src="empty-library.json"
+                background="transparent"
+                speed="1"
+                loop
+                autoplay
+              ></dotlottie-player>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ==================== 7. CATEGORY SIDEBAR DRAWER ==================== -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+    
+    <aside id="category-sidebar" class="category-sidebar" aria-label="All Categories Navigation" aria-hidden="true">
+      <div class="sidebar-header">
+        <h3 class="sidebar-title">All Categories</h3>
+        <button id="close-sidebar-btn" class="close-sidebar-btn" aria-label="Close categories sidebar">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-categories-list" id="sidebar-categories-list">
+        <!-- Rendered by JS -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="sidebar-check-updates-btn" class="sidebar-update-btn" type="button" aria-label="Check for new version">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+          <span>Check for Updates</span>
+        </button>
+        <div class="sidebar-app-version" id="sidebar-app-version">GT pro v1.0.0</div>
+      </div>
+    </aside>
+
+    <!-- ==================== 8. BOTTOM NAVIGATION ==================== -->
+    <!-- EXACT 3 ITEMS: Home | Donation (heart icon) | Library -->
+    <nav class="bottom-nav" id="bottom-nav" aria-label="Main navigation">
+
+      <!-- Item 1: Home (ACTIVE BY DEFAULT) -->
+      <button
+        class="nav-item active"
+        id="nav-item-home"
+        data-screen="home"
+        type="button"
+        aria-label="Home"
+        aria-current="page">
+        <span class="nav-glow" aria-hidden="true">
+          <span class="glow-rim"></span>
+          <span class="glow-beam"></span>
+          <span class="glow-radial"></span>
+        </span>
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" class="icon-svg-home">
+            <path d="M12 3L2 11.2L3.4 12.4L5 11.1V20.5C5 21.05 5.45 21.5 6 21.5H9.5C10.05 21.5 10.5 21.05 10.5 20.5V14.5C10.5 14.22 10.72 14 11 14H13C13.28 14 13.5 14.22 13.5 14.5V20.5C13.5 21.05 13.95 21.5 14.5 21.5H18C18.55 21.5 19 21.05 19 20.5V11.1L20.6 12.4L22 11.2L12 3Z" fill="currentColor"></path>
+          </svg>
+        </span>
+        <span class="nav-label">Home</span>
+      </button>
+
+      <!-- Item 2: Donation (Heart Icon) -->
+      <button
+        class="nav-item"
+        id="nav-item-donation"
+        data-screen="donation"
+        type="button"
+        aria-label="Donation">
+        <span class="nav-glow" aria-hidden="true">
+          <span class="glow-rim"></span>
+          <span class="glow-beam"></span>
+          <span class="glow-radial"></span>
+        </span>
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-svg-donation">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </span>
+        <span class="nav-label">Donation</span>
+      </button>
+
+      <!-- Item 3: Library -->
+      <button
+        class="nav-item"
+        id="nav-item-library"
+        data-screen="library"
+        type="button"
+        aria-label="Library">
+        <span class="nav-glow" aria-hidden="true">
+          <span class="glow-rim"></span>
+          <span class="glow-beam"></span>
+          <span class="glow-radial"></span>
+        </span>
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-svg-lib">
+            <path d="M3 7.5C3 6.4 3.9 5.5 5 5.5H9.2C9.8 5.5 10.3 5.8 10.6 6.3L11.8 8H19C20.1 8 21 8.9 21 10V18C21 19.1 20.1 20 19 20H5C3.9 20 3 19.1 3 18V7.5Z"></path>
+          </svg>
+        </span>
+        <span class="nav-label">Library</span>
+      </button>
+
+    </nav>
+
+    <!-- ==================== GITHUB VERSION CONTROL UPDATE MODAL ==================== -->
+    <div id="app-update-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="update-modal-title">
+      <div class="modal-card update-modal-card">
+        <div class="update-icon-wrapper">
+          <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+        </div>
+        <span class="update-tag" id="update-modal-tag">New Release</span>
+        <h3 id="update-modal-title" class="update-title">Update Available</h3>
+        <p class="update-subtitle" id="update-modal-version">A new version of GT pro is available.</p>
+        <div class="update-release-notes" id="update-modal-notes">
+          <!-- Populated from GitHub Release notes -->
+        </div>
+        <div class="update-modal-actions">
+          <a id="update-download-btn" href="#" target="_blank" class="btn-update-download" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Download APK</span>
+          </a>
+          <button id="update-later-btn" class="btn-update-later" type="button">Later</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== VPN DETECTED OVERLAY ==================== -->
+    <div id="vpn-detected-modal" class="vpn-overlay" aria-hidden="true" role="alertdialog">
+      <div class="vpn-card">
+        <div class="vpn-icon-bubble">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <h2 class="vpn-title">VPN Detected</h2>
+        <p class="vpn-desc">GT pro cannot be used while a VPN connection is active. Please disconnect your VPN to continue using the application.</p>
+        <button id="vpn-exit-btn" class="vpn-close-btn" type="button">Exit App</button>
+      </div>
+    </div>
+
+    <!-- Global Toast Alert System -->
+    <div id="app-toast" class="app-toast" role="status" aria-live="polite"></div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

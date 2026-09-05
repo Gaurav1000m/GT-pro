@@ -1,0 +1,31 @@
+{
+  "name": "gt-pro",
+  "version": "1.0.0",
+  "description": "Study With Gaurav PRO - Modern Learning Platform for Android & Web",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -l 5500 .",
+    "build": "rm -rf www && mkdir -p www && cp -r index.html style.css app.js assets logo.png empty-library.json www/",
+    "cap:sync": "npm run build && cap sync android",
+    "cap:open": "cap open android"
+  },
+  "keywords": [
+    "education",
+    "study-with-gaurav",
+    "gt-pro",
+    "capacitor",
+    "android"
+  ],
+  "author": "Gaurav",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/android": "^8.5.1",
+    "@capacitor/app": "^8.1.1",
+    "@capacitor/core": "^8.5.1",
+    "@capacitor/splash-screen": "^8.0.2",
+    "@capacitor/status-bar": "^8.0.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.1"
+  }
+}
