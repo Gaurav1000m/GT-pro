@@ -1886,16 +1886,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (logoRow) {
       logoRow.style.animation = 'none';
       void logoRow.offsetWidth; // trigger reflow
-      logoRow.style.animation = 'splashZoomInOut 1.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
+      logoRow.style.animation = 'splashZoomInOut 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
     }
-    setTimeout(hideSplashScreen, 1800);
+    setTimeout(hideSplashScreen, 3000);
   }
 
   if (shouldSkipSplash || hasSeenSplashSession) {
     hideSplashScreenImmediate();
   } else {
     sessionStorage.setItem('studyWithGauravSplashShown', 'true');
-    setTimeout(hideSplashScreen, 1800);
+    setTimeout(hideSplashScreen, 3000);
   }
 
   if (splashScreen) {
@@ -3553,8 +3553,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ==================== NO INTERNET CONNECTION HANDLER ====================
+  const noInternetScreen = document.getElementById('no-internet-screen');
+  const noInternetRetryBtn = document.getElementById('no-internet-retry-btn');
+
+  function updateOnlineStatus() {
+    if (!navigator.onLine) {
+      if (noInternetScreen) {
+        noInternetScreen.classList.add('active');
+        noInternetScreen.setAttribute('aria-hidden', 'false');
+      }
+    } else {
+      if (noInternetScreen && noInternetScreen.classList.contains('active')) {
+        noInternetScreen.classList.remove('active');
+        noInternetScreen.setAttribute('aria-hidden', 'true');
+        showToast('Internet connection restored');
+      }
+    }
+  }
+
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+
+  if (noInternetRetryBtn) {
+    noInternetRetryBtn.addEventListener('click', () => {
+      noInternetRetryBtn.classList.add('loading');
+      setTimeout(() => {
+        noInternetRetryBtn.classList.remove('loading');
+        if (navigator.onLine) {
+          updateOnlineStatus();
+        } else {
+          showToast('Still offline. Check Wi-Fi or Mobile Data.');
+        }
+      }, 700);
+    });
+  }
+
+  // Check network state on startup
+  if (!navigator.onLine) {
+    updateOnlineStatus();
+  }
+
   // ==================== CAPACITOR ANDROID HARDWARE BACK BUTTON ====================
   function handleAndroidBackButton() {
+    // 0. If No Internet Screen is open, exit or minimize app
+    if (noInternetScreen && noInternetScreen.classList.contains('active')) {
+      if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
+        window.Capacitor.Plugins.App.exitApp();
+      }
+      return;
+    }
+
     // 1. If Update Modal is open, close it
     if (updateModal && updateModal.classList.contains('active')) {
       updateModal.classList.remove('active');

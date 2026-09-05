@@ -191,7 +191,7 @@ html.splash-already-shown #splash-screen {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  animation: splashZoomInOut 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: splashZoomInOut 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   will-change: transform, opacity, filter;
 }
 
@@ -201,17 +201,17 @@ html.splash-already-shown #splash-screen {
     transform: scale(0.35);
     filter: blur(10px);
   }
-  32% {
+  24% {
     opacity: 1;
     transform: scale(1.08);
     filter: blur(0px);
   }
-  48% {
+  38% {
     opacity: 1;
     transform: scale(1);
     filter: blur(0px);
   }
-  68% {
+  75% {
     opacity: 1;
     transform: scale(1.04);
     filter: blur(0px);
@@ -3019,52 +3019,7 @@ html.splash-already-shown #splash-screen {
   animation: fadeUp 0.5s ease forwards;
 }
 
-.explore-page-back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: #374151;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.22s ease;
-  margin-bottom: 24px;
-}
 
-.explore-page-back-btn:hover {
-  transform: translateX(-4px);
-  background: #ffffff;
-  color: #111827;
-  border-color: rgba(0, 0, 0, 0.18);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-}
-
-.explore-page-back-btn:active {
-  transform: scale(0.96);
-}
-
-[data-theme="dark"] .explore-page-back-btn,
-html:not([data-theme="light"]) .explore-page-back-btn {
-  background: rgba(30, 41, 59, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  color: #e2e8f0;
-}
-
-[data-theme="dark"] .explore-page-back-btn:hover,
-html:not([data-theme="light"]) .explore-page-back-btn:hover {
-  background: #1e293b;
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.24);
-}
 
 .explore-hero {
   text-align: center;
@@ -3508,37 +3463,48 @@ html:not([data-theme="light"]) .allapps-card:hover .allapps-visit-btn {
 }
 
 .explore-page-back-btn {
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  cursor: pointer;
-  color: var(--text-primary);
-  display: flex;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 4px 8px 4px 0;
+  margin: 0;
+  width: auto;
+  min-width: 32px;
+  height: auto;
+  min-height: 32px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: var(--shadow-sm);
+  color: var(--text-primary, #ffffff);
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .explore-page-back-btn svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   stroke: currentColor;
-  stroke-width: 2.5;
+  stroke-width: 2.6;
   fill: none;
+  display: block;
 }
 
 .explore-page-back-btn:hover {
-  background: var(--brand-accent);
-  color: #ffffff;
-  transform: scale(1.05);
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--accent-gold, #f59e0b);
+  transform: translateX(-3px);
 }
 
 .explore-page-back-btn:active {
-  transform: scale(0.95);
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: translateX(-5px) scale(0.95);
+  opacity: 0.75;
 }
 
 /* ==================== DONATION PAGE UI (PROFESSIONAL RESPONSIVE IMPLEMENTATION) ==================== */
@@ -4830,4 +4796,117 @@ html:not([data-theme="light"]) .allapps-card:hover .allapps-visit-btn {
 .vpn-close-btn:active {
   transform: scale(0.98);
 }
+
+/* ==================== NO INTERNET SCREEN ==================== */
+.no-internet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 10, 15, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 99998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.no-internet-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.no-internet-card {
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  background: var(--bg-surface-elevated, #161a23);
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.12));
+  border-radius: 24px;
+  padding: 36px 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(245, 158, 11, 0.08);
+  transform: scale(0.92);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.no-internet-overlay.active .no-internet-card {
+  transform: scale(1);
+}
+
+.no-internet-icon-bubble {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-gold, #f59e0b);
+  animation: pulseGlow 2.5s infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(245, 158, 11, 0);
+  }
+}
+
+.no-internet-title {
+  color: var(--text-primary, #ffffff);
+  font-size: 21px;
+  font-weight: 800;
+  margin: 0 0 10px;
+  letter-spacing: -0.3px;
+}
+
+.no-internet-desc {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 13.5px;
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+
+.no-internet-retry-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #000000;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.no-internet-retry-btn:hover {
+  filter: brightness(1.1);
+}
+
+.no-internet-retry-btn:active {
+  transform: scale(0.97);
+}
+
+.no-internet-retry-btn.loading .retry-icon {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 

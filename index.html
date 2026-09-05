@@ -235,10 +235,9 @@
       <section id="view-explore" class="view-panel" style="display: none;" aria-label="Explore Category">
         <div class="content-container">
           <div class="explore-page-custom-header">
-            <button id="explore-page-back-btn" class="explore-page-back-btn" type="button" aria-label="Go back one step to Home">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
+            <button id="explore-page-back-btn" class="explore-page-back-btn" type="button" aria-label="Go back to Home">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"></path>
               </svg>
             </button>
             <h2 id="explore-page-cat-name" class="explore-page-title">Explore</h2>
@@ -604,6 +603,32 @@
           </a>
           <button id="update-later-btn" class="btn-update-later" type="button">Later</button>
         </div>
+      </div>
+    </div>
+
+    <!-- ==================== NO INTERNET SCREEN ==================== -->
+    <div id="no-internet-screen" class="no-internet-overlay" aria-hidden="true" role="alertdialog" aria-labelledby="no-internet-title">
+      <div class="no-internet-card">
+        <div class="no-internet-icon-bubble">
+          <svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+            <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+            <line x1="12" y1="20" x2="12.01" y2="20"></line>
+          </svg>
+        </div>
+        <h2 id="no-internet-title" class="no-internet-title">No Internet Connection</h2>
+        <p class="no-internet-desc">You are currently offline. Please check your Wi-Fi or mobile data network to continue using GT pro.</p>
+        <button id="no-internet-retry-btn" class="no-internet-retry-btn" type="button">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="retry-icon">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+          </svg>
+          <span>Retry Connection</span>
+        </button>
       </div>
     </div>
 
