@@ -40,6 +40,73 @@ public class MainActivity extends BridgeActivity {
         }
 
         registerVpnCallback();
+        configureWebView();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        configureWebView();
+    }
+
+    private void configureWebView() {
+        if (getBridge() != null && getBridge().getWebView() != null) {
+            android.webkit.WebView webView = getBridge().getWebView();
+            webView.setVerticalScrollBarEnabled(false);
+            webView.setHorizontalScrollBarEnabled(false);
+            webView.setOverScrollMode(android.view.View.OVER_SCROLL_NEVER);
+
+            // Handle target="_blank" and window.open internally instead of launching Chrome
+            webView.getSettings().setSupportMultipleWindows(true);
+            webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+            webView.setWebChromeClient(new com.getcapacitor.BridgeWebChromeClient(getBridge()) {
+                @Override
+                public boolean onCreateWindow(android.webkit.WebView view, boolean isDialog, boolean isUserGesture, android.os.Message resultMsg) {
+                    android.webkit.WebView dummyWebView = new android.webkit.WebView(view.getContext());
+                    dummyWebView.setWebViewClient(new android.webkit.WebViewClient() {
+                        @Override
+                        public boolean shouldOverrideUrlLoading(android.webkit.WebView dummyView, android.webkit.WebResourceRequest request) {
+                            view.loadUrl(request.getUrl().toString());
+                            return true;
+                        }
+                    });
+                    android.webkit.WebView.WebViewTransport transport = (android.webkit.WebView.WebViewTransport) resultMsg.obj;
+                    transport.setWebView(dummyWebView);
+                    resultMsg.sendToTarget();
+                    return true;
+                }
+            });
+
+            // Spoof User-Agent to prevent Cloudflare/Education sites from blocking WebViews
+            String userAgent = webView.getSettings().getUserAgentString();
+            if (userAgent != null) {
+                webView.getSettings().setUserAgentString(userAgent.replace("; wv", ""));
+            }
+
+            // Override WebViewClient to ignore SSL errors and inject safe area styles
+            webView.setWebViewClient(new com.getcapacitor.BridgeWebViewClient(getBridge()) {
+                @Override
+                public void onReceivedSslError(android.webkit.WebView view, android.webkit.SslErrorHandler handler, android.net.http.SslError error) {
+                    // Ignore SSL certificate errors to allow sites with misconfigured certificates
+                    handler.proceed();
+                }
+
+                @Override
+                public void onPageFinished(android.webkit.WebView view, String url) {
+                    super.onPageFinished(view, url);
+                    // Inject Safe Area Padding on external domains
+                    if (url != null && !url.contains("localhost")) {
+                        String js = "if(!document.getElementById('injected-safe-area')){" +
+                                    "var s=document.createElement('style');" +
+                                    "s.id='injected-safe-area';" +
+                                    "s.innerHTML='body { padding-top: env(safe-area-inset-top, 30px) !important; padding-bottom: env(safe-area-inset-bottom, 30px) !important; box-sizing: border-box; }';" +
+                                    "document.head.appendChild(s);" +
+                                    "}";
+                        view.evaluateJavascript(js, null);
+                    }
+                }
+            });
+        }
     }
 
     @Override

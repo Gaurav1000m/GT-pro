@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "pw-1",
       name: "Physics Wallah 🚀",
-      url: "https://deltastudy.site/study-v2/batches",
+      url: "https://deltastudy.fun/study-v2/batches",
       logo: "https://i.postimg.cc/dQ75LH4X/image.png",
       category: "physics-wallah"
     },
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "pw-6",
       name: "Physics Wallah ⚡",
-      url: "https://pw.studypanda.live/study/batches",
+      url: "https://physicswalla.studypanda.live/auth",
       logo: "https://i.ibb.co/NnTM9ZwF/studypanda-pw.png",
       category: "physics-wallah"
     },
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "pw-9",
       name: "Physics Wallah 🎯",
-      url: "https://pw.primestudy.site/auth",
+      url: "https://pw.primestudy.live/auth",
       logo: "https://files.catbox.moe/oqcdfv.png",
       category: "physics-wallah"
     },
@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "pw-ott-1",
       name: "PW OTT 🚀",
-      url: "https://pipro.deltastudy.site/",
+      url: "https://pipro.deltastudy.fun/",
       logo: "https://i.ibb.co/FRDwFWc/20260613-082831.jpg",
       category: "pw-ott-pi-pro"
     },
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "nt-3",
       name: "Next Toppers 🌟",
-      url: "https://deltastudy.site/nexttoppers",
+      url: "https://deltastudy.fun/nexttoppers",
       logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1mUiY27Zw1lOwzgyGbwpdWlVgzDEZGmrfjfZqT0XGew&s",
       category: "next-toppers"
     },
@@ -449,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "nt-7",
       name: "Next Toppers 💎",
-      url: "https://nexttopper.primestudy.site/",
+      url: "https://nexttopper.primestudy.live/",
       logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1mUiY27Zw1lOwzgyGbwpdWlVgzDEZGmrfjfZqT0XGew&s",
       category: "next-toppers"
     },
@@ -573,6 +573,13 @@ document.addEventListener('DOMContentLoaded', () => {
       category: "missionjeet"
     },
     {
+      id: "pipeline-missionjeet",
+      name: "MissionJEET Pipeline 🎯",
+      url: "https://pipeline.missionjeet.in/",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXhmAX6UC18CYhwU2a6f7gn9E5WE0g4hzSQK2zyH_nVA&s",
+      category: "missionjeet"
+    },
+    {
       id: "mj-mta",
       name: "MissionJEET 🚀",
       url: "https://mj.mtaiirus.site/",
@@ -582,7 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "mj-2",
       name: "MissionJEET 🔥",
-      url: "https://mission-jeet.primestudy.site/missionjeet/",
+      url: "https://mission-jeet.primestudy.live/missionjeet/",
       logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXhmAX6UC18CYhwU2a6f7gn9E5WE0g4hzSQK2zyH_nVA&s",
       category: "missionjeet"
     },
@@ -596,7 +603,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "mj-4",
       name: "MissionJEET ✨",
-      url: "https://deltastudy.site/missionjeet",
+      url: "https://deltastudy.fun/missionjeet",
       logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXhmAX6UC18CYhwU2a6f7gn9E5WE0g4hzSQK2zyH_nVA&s",
       category: "missionjeet"
     },
@@ -708,7 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "va-4",
       name: "Vibrant Academy ✨",
-      url: "https://deltastudy.site/vibrant",
+      url: "https://deltastudy.fun/vibrant",
       logo: "/images/classx-subject.webp",
       category: "vibrant-academy"
     },
@@ -750,7 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "ms-1",
       name: "Munil Sir 🚀",
-      url: "https://deltastudy.site/munilsir",
+      url: "https://deltastudy.fun/munilsir",
       logo: "https://nocache-appxdb.classx.co.in/subject/2024-08-09-0.845544467533613.png",
       category: "munil-sir"
     },
@@ -778,7 +785,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "rwa-4",
       name: "RWA 🌟",
-      url: "https://deltastudy.site/rojgarwithankit",
+      url: "https://deltastudy.fun/rojgarwithankit",
       logo: "https://nocache-appxdb-v2.classx.co.in/subject/2025-02-10-0.12268714003029602.jpeg",
       category: "rojgar-with-ankit"
     },
@@ -848,7 +855,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "sf-2",
       name: "Science And Fun 🚀",
-      url: "https://deltastudy.site/scienceandfun",
+      url: "https://deltastudy.fun/scienceandfun",
       logo: "https://appx-wsb-gcp-mcdn.akamai.net.in/subject/2022-11-09-0.46231084813575274.png",
       category: "science-and-fun"
     },
@@ -869,7 +876,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "jp-1",
       name: "Just Padhle 🚀",
-      url: "https://deltastudy.site/padhle",
+      url: "https://deltastudy.fun/padhle",
       logo: "https://i.ibb.co/fdZ4rc6F/10266.jpg",
       category: "just-padhle"
     },
@@ -897,7 +904,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "sw-2",
       name: "Selection Way 🔥",
-      url: "https://deltastudy.site/sway",
+      url: "https://deltastudy.fun/sway",
       logo: "https://www.selectionway.com/next_images/logo.png",
       category: "selection-way"
     },
@@ -995,7 +1002,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "un-5",
       name: "Unacademy 💥",
-      url: "https://unacademy.primestudy.site/",
+      url: "https://unacademy.primestudy.live/",
       logo: "https://i.postimg.cc/PJj1bKn9/images-2026-07-02T231828-233.png",
       category: "unacademy"
     },
@@ -1016,7 +1023,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "ua-studybison",
       name: "StudyBison UnAcademy 🎓",
-      url: "https://ua.studybison.in/",
+      url: "https://uncs.studybison.in/",
       logo: "https://i.postimg.cc/PJj1bKn9/images-2026-07-02T231828-233.png",
       category: "unacademy"
     },
@@ -1044,7 +1051,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "msahab-1",
       name: "Master Sahab 🚀",
-      url: "https://deltastudy.site/mastersahab",
+      url: "https://deltastudy.fun/mastersahab",
       logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnIU9FCUpuoM2huY5k-ggVgZIB28M4VKpaS-1NOCixoA&s",
       category: "master-sahab"
     },
@@ -1205,7 +1212,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "fk-1",
       name: "Futurekul 🚀",
-      url: "https://fk.learntopper.in/",
+      url: "https://pw.learntopper.in/",
       logo: "https://i.postimg.cc/z3YX3H2x/images-(1).jpg",
       category: "futurekul"
     },
@@ -1401,7 +1408,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: "bk-1",
       name: "BOOK 🚀",
-      url: "https://bookverse.deltastudy.site/",
+      url: "https://bookverse.deltastudy.fun/",
       logo: "https://st2.depositphotos.com/3573725/6541/v/450/depositphotos_65413355-stock-illustration-book-logo.jpg",
       category: "book"
     },
@@ -1837,6 +1844,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
   applyTheme(currentTheme);
 
+  // ==================== IN-MEMORY & LOCALSTORAGE DATA / LOGO CACHING ====================
+  const MEMORY_CACHE = {
+    appLogo: localStorage.getItem('gt_cached_app_logo') || '',
+    categories: null,
+    websites: null
+  };
+
+  function cacheAppDataInMemory() {
+    try {
+      // 1. Cache Categories and Websites data into memory and LocalStorage
+      MEMORY_CACHE.categories = categoriesData;
+      MEMORY_CACHE.websites = WEBSITES;
+      localStorage.setItem('gt_cached_categories', JSON.stringify(categoriesData));
+      localStorage.setItem('gt_cached_websites', JSON.stringify(WEBSITES));
+
+      // 2. Pre-cache app logo as base64 data URI if not already cached
+      if (!MEMORY_CACHE.appLogo) {
+        const logoImg = new Image();
+        logoImg.crossOrigin = 'Anonymous';
+        logoImg.onload = () => {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = logoImg.naturalWidth || 128;
+            canvas.height = logoImg.naturalHeight || 128;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(logoImg, 0, 0);
+            const dataUrl = canvas.toDataURL('image/png');
+            if (dataUrl && dataUrl.startsWith('data:image/')) {
+              MEMORY_CACHE.appLogo = dataUrl;
+              localStorage.setItem('gt_cached_app_logo', dataUrl);
+            }
+          } catch (e) {
+            console.warn('Canvas logo cache failed:', e);
+          }
+        };
+        logoImg.src = 'assets/logo.png';
+      }
+    } catch (err) {
+      console.warn('Could not cache app data to memory/localStorage:', err);
+    }
+  }
+
+  cacheAppDataInMemory();
+
+  function recoverOfflineMedia() {
+    const cachedLogo = MEMORY_CACHE.appLogo || localStorage.getItem('gt_cached_app_logo') || 'assets/logo.png';
+    // Restore brand & splash logos
+    document.querySelectorAll('.brand-logo, .splash-logo').forEach(img => {
+      if (!img.complete || img.naturalWidth === 0) {
+        img.src = cachedLogo;
+      }
+    });
+    // Restore cards logo
+    document.querySelectorAll('.allapps-card').forEach(card => {
+      const img = card.querySelector('img');
+      const originalSrc = card.getAttribute('data-logo-src') || (img ? img.getAttribute('data-original-src') : '');
+      if (img && (!img.complete || img.naturalWidth === 0)) {
+        if (originalSrc && navigator.onLine) {
+          img.src = originalSrc;
+        } else {
+          img.src = cachedLogo;
+        }
+      }
+    });
+  }
+
   // ==================== TOAST NOTIFICATION ====================
   let toastTimer;
   function showToast(message) {
@@ -1888,7 +1961,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(hideSplashScreen, 3000);
   }
 
-  if (shouldSkipSplash) {
+  if (shouldSkipSplash || localStorage.getItem('gt_splash_shown') === 'true') {
     hideSplashScreenImmediate();
   } else {
     if (splashScreen) {
@@ -2410,7 +2483,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== EXACT ALLAPPS.CFD CARD UI ====================
   function createAllAppsCard(item, isSaved) {
     const catObj = categoriesData.find(c => c.id === item.category);
-    const fallbackLogo = catObj ? catObj.logo : 'https://upload.wikimedia.org/wikipedia/commons/7/76/Physics_wallah_logo.jpg';
+    const cachedAppLogo = MEMORY_CACHE.appLogo || localStorage.getItem('gt_cached_app_logo') || 'assets/logo.png';
+    const fallbackLogo = catObj ? catObj.logo : cachedAppLogo;
 
     return `
       <article class="allapps-card" data-id="${item.id}" data-url="${item.url}" data-title="${item.name}" tabindex="0" role="link" aria-label="${item.name}">
@@ -2431,12 +2505,13 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="allapps-logo-wrapper">
           <img
             src="${item.logo}"
+            data-original-src="${item.logo}"
             alt="${item.name} Logo"
             loading="lazy"
             onerror="this.onerror=null; this.src='${fallbackLogo}';"
           />
         </div>
-        <a class="allapps-visit-btn" href="${item.url}" target="_self" rel="noopener">Visit Now</a>
+        <a class="allapps-visit-btn" href="${item.url}" rel="noopener noreferrer">Visit Now</a>
       </article>
     `;
   }
@@ -2451,14 +2526,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = card.getAttribute('data-url');
         const title = card.getAttribute('data-title');
         if (url) {
-          saveAppStateBeforeNavigation();
-          if (e.target.closest('.allapps-visit-btn')) {
-            // Anchor tag handles standard navigation
-            return;
-          }
-          showToast(`Opening: ${title} 🚀`);
-          // Navigate in same tab
-          window.location.assign(url);
+          e.preventDefault();
+          openInAppBrowser(url, title);
         }
       };
 
@@ -2472,8 +2541,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     container.querySelectorAll('.allapps-visit-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        saveAppStateBeforeNavigation();
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const card = btn.closest('.allapps-card');
+        if (!card) return;
+        const url = card.getAttribute('data-url');
+        const title = card.getAttribute('data-title');
+        if (url) openInAppBrowser(url, title);
       });
     });
 
@@ -2876,6 +2950,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (savedCounter) {
       savedCounter.textContent = `${saved.length} item${saved.length === 1 ? '' : 's'}`;
     }
+    const librarySavedCountPill = document.getElementById('library-saved-count-pill');
+    if (librarySavedCountPill) {
+      librarySavedCountPill.textContent = `${saved.length} Saved`;
+    }
 
     if (saved.length === 0) {
       savedItemsContainer.innerHTML = '';
@@ -3012,9 +3090,49 @@ document.addEventListener('DOMContentLoaded', () => {
       renderSavedScreen();
     }
 
+    // Toggle Home header search & filter controls visibility (only visible on Home screen)
+    const homeHeaderControls = document.getElementById('home-header-controls');
+    if (homeHeaderControls) {
+      homeHeaderControls.style.display = (effectiveScreen === 'home') ? 'block' : 'none';
+    }
+
+    // Update screen state on body & sync fixed header height
+    document.body.setAttribute('data-screen', effectiveScreen);
+    document.body.classList.toggle('screen-home', effectiveScreen === 'home');
+    if (typeof window.syncAppHeaderHeight === 'function') {
+      window.syncAppHeaderHeight();
+    }
+
     // Save app state
     saveAppStateBeforeNavigation();
   }
+
+  // ==================== IN-APP BROWSER (SAME TAB NAVIGATION) ====================
+  // Opens the URL in the SAME WebView tab — no external browser, no iframe, no overlay.
+  // State is saved to localStorage so it survives the origin change.
+  // Pressing Android back returns to the app and restores the previous screen.
+  function openInAppBrowser(url) {
+    if (!url) return;
+
+    // Save full app state to both storages before navigating away
+    try {
+      const appState = {
+        screen: currentActiveScreen || 'home',
+        category: currentSelectedCategory || '',
+        searchQuery: searchInput ? searchInput.value.trim() : '',
+        scrollY: window.scrollY || document.documentElement.scrollTop || 0,
+        timestamp: Date.now()
+      };
+      const stateStr = JSON.stringify(appState);
+      sessionStorage.setItem('studyWithGauravLastState', stateStr);
+      localStorage.setItem('gt_last_app_state', stateStr);       // survives origin change
+      localStorage.setItem('gt_splash_shown', 'true');            // don't replay splash on return
+    } catch (e) {}
+
+    // Navigate the current WebView tab directly to the URL
+    window.location.href = url;
+  }
+
 
   // Wire navigation item click and keyboard handlers
   const allNavButtons = document.querySelectorAll('.bottom-nav .nav-item');
@@ -3031,6 +3149,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Screen App Bar Back Buttons (Explore, Donation, Library)
+  const donationPageBackBtn = document.getElementById('donation-page-back-btn');
+  if (donationPageBackBtn) {
+    donationPageBackBtn.addEventListener('click', () => {
+      switchScreen('home');
+    });
+  }
+
+  const libraryPageBackBtn = document.getElementById('library-page-back-btn');
+  if (libraryPageBackBtn) {
+    libraryPageBackBtn.addEventListener('click', () => {
+      switchScreen('home');
+    });
+  }
 
   // Go Home from Saved/Library button
   const goHomeFromSavedBtn = document.getElementById('go-home-from-saved');
@@ -3070,9 +3203,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const rawState = sessionStorage.getItem('studyWithGauravLastState');
       let savedState = null;
       if (rawState) {
-        try {
-          savedState = JSON.parse(rawState);
-        } catch (e) {}
+        try { savedState = JSON.parse(rawState); } catch (e) {}
+      }
+      // Also check localStorage — used when returning from same-tab external navigation
+      if (!savedState) {
+        const lsRaw = localStorage.getItem('gt_last_app_state');
+        if (lsRaw) {
+          try {
+            const lsState = JSON.parse(lsRaw);
+            // Only use it if recent (within 1 hour) to avoid stale states
+            if (lsState.timestamp && (Date.now() - lsState.timestamp) < 3600000) {
+              savedState = lsState;
+            }
+          } catch (e) {}
+        }
       }
 
       if (!targetScreen && savedState && savedState.screen) {
@@ -3580,6 +3724,7 @@ document.addEventListener('DOMContentLoaded', () => {
         noInternetScreen.setAttribute('aria-hidden', 'true');
         showToast('Internet connection restored');
       }
+      recoverOfflineMedia();
     }
   }
 
@@ -3593,6 +3738,8 @@ document.addEventListener('DOMContentLoaded', () => {
         noInternetRetryBtn.classList.remove('loading');
         if (navigator.onLine) {
           updateOnlineStatus();
+          recoverOfflineMedia();
+          showToast('Connection verified! 🚀');
         } else {
           showToast('Still offline. Check Wi-Fi or Mobile Data.');
         }
@@ -3629,7 +3776,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 3. If currently on a non-home screen (donation, library, explore), go back to home
-    if (currentScreen !== 'home') {
+    if (typeof currentActiveScreen !== 'undefined' && currentActiveScreen !== 'home') {
       switchScreen('home', true, true);
       return;
     }
@@ -3653,4 +3800,45 @@ document.addEventListener('DOMContentLoaded', () => {
       handleAndroidBackButton();
     });
   }
+
+  // ==================== FIXED UPPER HEADER SCROLL SHADOW & HEIGHT SYNC ====================
+  const upperAppHeader = document.getElementById('app-header');
+  window.syncAppHeaderHeight = function() {
+    if (upperAppHeader) {
+      const h = upperAppHeader.offsetHeight;
+      if (h > 0) {
+        document.documentElement.style.setProperty('--app-header-height', `${h}px`);
+      }
+    }
+  };
+
+  if (upperAppHeader) {
+    const onScrollHeader = () => {
+      const scrollPos = window.scrollY || document.documentElement.scrollTop || 0;
+      if (scrollPos > 8) {
+        upperAppHeader.classList.add('is-scrolled');
+      } else {
+        upperAppHeader.classList.remove('is-scrolled');
+      }
+    };
+    window.addEventListener('scroll', onScrollHeader, { passive: true });
+    window.addEventListener('resize', window.syncAppHeaderHeight);
+    if (window.ResizeObserver) {
+      const ro = new ResizeObserver(() => window.syncAppHeaderHeight());
+      ro.observe(upperAppHeader);
+    }
+    window.syncAppHeaderHeight();
+    onScrollHeader();
+  }
+
+  // ==================== DEV SERVER NOTIFICATION CLEANUP ====================
+  const removeDevServerToast = () => {
+    const el = document.getElementById('fiveserver-info-wrapper');
+    if (el) el.remove();
+  };
+  removeDevServerToast();
+  try {
+    const obs = new MutationObserver(() => removeDevServerToast());
+    obs.observe(document.body, { childList: true, subtree: false });
+  } catch (e) {}
 });

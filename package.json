@@ -7,7 +7,8 @@
     "start": "npx serve -l 5500 .",
     "build": "rm -rf www && mkdir -p www && cp -r index.html style.css app.js assets logo.png empty-library.json www/",
     "cap:sync": "npm run build && cap sync android",
-    "cap:open": "cap open android"
+    "cap:open": "cap open android",
+    "screenshots": "node scripts/capture_screenshots.js"
   },
   "keywords": [
     "education",
@@ -21,11 +22,13 @@
   "dependencies": {
     "@capacitor/android": "^8.5.1",
     "@capacitor/app": "^8.1.1",
+    "@capacitor/browser": "^8.0.4",
     "@capacitor/core": "^8.5.1",
     "@capacitor/splash-screen": "^8.0.2",
     "@capacitor/status-bar": "^8.0.3"
   },
   "devDependencies": {
-    "@capacitor/cli": "^8.5.1"
+    "@capacitor/cli": "^8.5.1",
+    "puppeteer-core": "^25.10.0"
   }
 }

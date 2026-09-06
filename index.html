@@ -35,7 +35,7 @@
   <!-- DotLottie Player Component -->
   <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head>
-<body>
+<body class="screen-home" data-screen="home">
 
   <!-- ==================== 1. SPLASH SCREEN ==================== -->
   <div id="splash-screen" class="splash-screen" role="dialog" aria-label="Loading Study With Gaurav">
@@ -119,53 +119,61 @@
           </div>
         </div>
 
-        <!-- 3. SEARCH BAR IN UPPER HEADER -->
-        <div class="search-section">
-          <div class="search-input-container">
-            <button type="button" class="search-submit-btn" id="search-submit-btn" aria-label="Search websites and categories">
-              <svg class="search-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        <!-- HOME-SPECIFIC CONTROLS (SEARCH & CATEGORY CHIPS) -->
+        <div id="home-header-controls" class="home-header-controls">
+          <!-- 3. SEARCH BAR IN UPPER HEADER -->
+          <div class="search-section">
+            <div class="search-input-container">
+              <button type="button" class="search-submit-btn" id="search-submit-btn" aria-label="Search websites and categories">
+                <svg class="search-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+              <input type="search" id="subject-search-input" class="search-input" placeholder="Search websites or categories..." autocomplete="off" aria-label="Search">
+              <button id="clear-search-btn" class="clear-search-btn" type="button" aria-label="Clear search query" style="display: none;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Quick Category Suggestions Popover -->
+            <div class="search-suggestions-dropdown" id="search-suggestions-dropdown" style="display: none;">
+              <div class="suggestions-header">
+                <span class="suggestions-title">Suggested Categories</span>
+                <span class="suggestions-hint">Tap to explore</span>
+              </div>
+              <div class="suggestions-chips-row" id="suggestions-chips-container">
+                <!-- Dynamically populated from categoriesData -->
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. CATEGORY / FILTER CONTROLS & CHIPS IN UPPER HEADER (FILTER | NDA | CDS | AFCAT) -->
+          <div class="filter-controls-row">
+            <!-- Filter Button (Triggers Left Sidebar Drawer) -->
+            <button id="open-category-filter-btn" class="category-filter-trigger-btn" aria-label="Open Filters" title="Filter Categories">
+              <svg class="sliders-icon" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="2" y1="6" x2="11" y2="6"></line>
+                <line x1="15" y1="6" x2="18" y2="6"></line>
+                <circle cx="13" cy="6" r="1.8" fill="currentColor"></circle>
+                <line x1="2" y1="14" x2="5" y2="14"></line>
+                <line x1="9" y1="14" x2="18" y2="14"></line>
+                <circle cx="7" cy="14" r="1.8" fill="currentColor"></circle>
+              </svg>
+              <svg class="chevron-down-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>
-            <input type="search" id="subject-search-input" class="search-input" placeholder="Search websites or categories..." autocomplete="off" aria-label="Search">
-            <button id="clear-search-btn" class="clear-search-btn" aria-label="Clear search query" style="display: none;">✕</button>
-          </div>
 
-          <!-- Quick Category Suggestions Popover -->
-          <div class="search-suggestions-dropdown" id="search-suggestions-dropdown" style="display: none;">
-            <div class="suggestions-header">
-              <span class="suggestions-title">Suggested Categories</span>
-              <span class="suggestions-hint">Tap to explore</span>
+            <!-- Horizontal Category Chips: EXACT ORDER: NDA | CDS | AFCAT -->
+            <div class="chips-scroll-track" id="category-chips-track" role="tablist" aria-label="Category Filters">
+              <button class="filter-chip active" data-filter="NDA" role="tab" aria-selected="true">NDA</button>
+              <button class="filter-chip" data-filter="CDS" role="tab" aria-selected="false">CDS</button>
+              <button class="filter-chip" data-filter="AFCAT" role="tab" aria-selected="false">AFCAT</button>
             </div>
-            <div class="suggestions-chips-row" id="suggestions-chips-container">
-              <!-- Dynamically populated from categoriesData -->
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. CATEGORY / FILTER CONTROLS & CHIPS IN UPPER HEADER (FILTER | NDA | CDS | AFCAT) -->
-        <div class="filter-controls-row">
-          <!-- Filter Button (Triggers Left Sidebar Drawer) -->
-          <button id="open-category-filter-btn" class="category-filter-trigger-btn" aria-label="Open Filters" title="Filter Categories">
-            <svg class="sliders-icon" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="2" y1="6" x2="11" y2="6"></line>
-              <line x1="15" y1="6" x2="18" y2="6"></line>
-              <circle cx="13" cy="6" r="1.8" fill="currentColor"></circle>
-              <line x1="2" y1="14" x2="5" y2="14"></line>
-              <line x1="9" y1="14" x2="18" y2="14"></line>
-              <circle cx="7" cy="14" r="1.8" fill="currentColor"></circle>
-            </svg>
-            <svg class="chevron-down-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-
-          <!-- Horizontal Category Chips: EXACT ORDER: NDA | CDS | AFCAT -->
-          <div class="chips-scroll-track" id="category-chips-track" role="tablist" aria-label="Category Filters">
-            <button class="filter-chip active" data-filter="NDA" role="tab" aria-selected="true">NDA</button>
-            <button class="filter-chip" data-filter="CDS" role="tab" aria-selected="false">CDS</button>
-            <button class="filter-chip" data-filter="AFCAT" role="tab" aria-selected="false">AFCAT</button>
           </div>
         </div>
       </div>
@@ -262,6 +270,17 @@
       <!-- ==================== VIEW 2: DONATION & SUPPORT ==================== -->
       <section id="view-donation" class="view-panel donation-page" style="display: none;" aria-label="Support Study With Gaurav">
         <div class="content-container">
+          <!-- Native Android Screen App Bar with Back Button -->
+          <div class="screen-app-bar" id="donation-app-bar">
+            <button id="donation-page-back-btn" class="screen-app-bar-back-btn" type="button" aria-label="Back to Home">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            <h2 class="screen-app-bar-title">Support &amp; Donate</h2>
+            <span class="screen-app-bar-badge">GT PRO</span>
+          </div>
+
           <div class="donation-screen-container">
 
             <!-- 1. HERO SECTION -->
@@ -454,6 +473,16 @@
       <!-- ==================== VIEW 3: LIBRARY (SAVED & BOOKMARKS) ==================== -->
       <section id="view-library" class="view-panel" style="display: none;" aria-label="Library &amp; Saved Resources">
         <div class="content-container">
+          <!-- Native Android Screen App Bar with Back Button -->
+          <div class="screen-app-bar" id="library-app-bar">
+            <button id="library-page-back-btn" class="screen-app-bar-back-btn" type="button" aria-label="Back to Home">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            <h2 class="screen-app-bar-title">Saved Resources</h2>
+            <span class="screen-app-bar-badge" id="library-saved-count-pill">0 Saved</span>
+          </div>
           
 
           <!-- All Saved Cards in Responsive Grid -->
@@ -605,24 +634,68 @@
       </div>
     </div>
 
-    <!-- ==================== NO INTERNET SCREEN ==================== -->
+    <!-- ==================== NO INTERNET SCREEN (NATIVE JAVA TOWER UI) ==================== -->
     <div id="no-internet-screen" class="no-internet-overlay" aria-hidden="true" role="alertdialog" aria-labelledby="no-internet-title">
       <div class="no-internet-card">
-        <div class="no-internet-icon-bubble">
-          <svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="1" y1="1" x2="23" y2="23"></line>
-            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
-            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
-            <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
-            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
-            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
-            <line x1="12" y1="20" x2="12.01" y2="20"></line>
+        <!-- Cellular Transmission Tower Graphic with Lost Signal Waves Animation -->
+        <div class="tower-container">
+          <svg class="tower-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="towerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#3b82f6"/>
+                <stop offset="100%" stop-color="#1d4ed8"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Radiating Lost Waves Left Side -->
+            <path class="tower-wave-left-1" d="M48 32 A16 16 0 0 0 48 52" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+            <path class="tower-wave-left-2" d="M40 24 A28 28 0 0 0 40 60" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+            <path class="tower-wave-left-3" d="M32 16 A40 40 0 0 0 32 68" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 3"/>
+
+            <!-- Radiating Lost Waves Right Side -->
+            <path class="tower-wave-right-1" d="M72 32 A16 16 0 0 1 72 52" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+            <path class="tower-wave-right-2" d="M80 24 A28 28 0 0 1 80 60" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+            <path class="tower-wave-right-3" d="M88 16 A40 40 0 0 1 88 68" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 3"/>
+
+            <!-- Transmission Tower Mast Structure -->
+            <line x1="38" y1="102" x2="82" y2="102" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round"/>
+            <line x1="44" y1="102" x2="60" y2="38" stroke="url(#towerGrad)" stroke-width="3" stroke-linecap="round"/>
+            <line x1="76" y1="102" x2="60" y2="38" stroke="url(#towerGrad)" stroke-width="3" stroke-linecap="round"/>
+            
+            <!-- Cross bracing (trusses) -->
+            <line x1="48" y1="86" x2="72" y2="86" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+            <line x1="52" y1="70" x2="68" y2="70" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+            <line x1="56" y1="54" x2="64" y2="54" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+            <line x1="48" y1="86" x2="68" y2="70" stroke="#475569" stroke-width="1.8"/>
+            <line x1="72" y1="86" x2="52" y2="70" stroke="#475569" stroke-width="1.8"/>
+            <line x1="52" y1="70" x2="64" y2="54" stroke="#475569" stroke-width="1.8"/>
+            <line x1="68" y1="70" x2="56" y2="54" stroke="#475569" stroke-width="1.8"/>
+
+            <!-- Antenna Spire -->
+            <line x1="60" y1="38" x2="60" y2="20" stroke="#3b82f6" stroke-width="3.2" stroke-linecap="round"/>
+            
+            <!-- Red Warning Beacon Light (Blinking indicator) -->
+            <circle class="tower-beacon" cx="60" cy="18" r="4.5" fill="#ef4444"/>
+            <circle class="tower-beacon-glow" cx="60" cy="18" r="8" fill="#ef4444" opacity="0.35"/>
+            
+            <!-- Lost Connection Disconnect Marker / Warning Badge -->
+            <g transform="translate(68, 74)">
+              <circle cx="16" cy="16" r="14" fill="#18181b" stroke="#ef4444" stroke-width="2"/>
+              <path d="M11 11 L21 21 M21 11 L11 21" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+            </g>
           </svg>
         </div>
-        <h2 id="no-internet-title" class="no-internet-title">No Internet Connection</h2>
-        <p class="no-internet-desc">You are currently offline. Please check your Wi-Fi or mobile data network to continue using GT pro.</p>
+
+        <div class="no-internet-status-pill">
+          <span class="status-dot"></span>
+          <span>No Connection • Signal Lost</span>
+        </div>
+
+        <h2 id="no-internet-title" class="no-internet-title">Connection Lost</h2>
+        <p class="no-internet-desc">We couldn't connect to the network. Please check your cellular data or Wi-Fi connection and tap retry.</p>
+
         <button id="no-internet-retry-btn" class="no-internet-retry-btn" type="button">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="retry-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="retry-icon">
             <polyline points="23 4 23 10 17 10"></polyline>
             <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
           </svg>
