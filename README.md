@@ -48,7 +48,7 @@
 **GT pro** is a high-performance educational portal offering students streamlined access to top competitive exam portals (NDA, CDS, AFCAT, JEE, NEET, and more), live online lectures, notes, and study resources. It is engineered with:
 
 - **Package ID**: `com.gt.pro`
-- **Current Version**: `1.2.0`
+- **Current Version**: `1.3.0`
 - **Default Theme**: Sleek Dark OLED Mode with Dynamic Light/Dark switching
 - **Cross-Platform**: Operates identically as an offline-capable Progressive Web Application (PWA) and an Android APK / AAB.
 

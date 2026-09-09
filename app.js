@@ -2428,7 +2428,8 @@ document.addEventListener('DOMContentLoaded', () => {
       categoryCountPill.textContent = `${categoriesData.length} Topics`;
     }
 
-    categoriesRectContainer.innerHTML = categoriesData.map(cat => {
+    let catHtml = '';
+    categoriesData.forEach((cat, index) => {
       const isActive = activeCategory.toLowerCase() === cat.name.toLowerCase();
       const siteCount = WEBSITES.filter(w => {
         const catObj = categoriesData.find(c => c.id === w.category);
@@ -2436,7 +2437,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return w.category === cat.id || cName === cat.name.toLowerCase();
       }).length;
 
-      return `
+      catHtml += `
         <button class="category-rect-box ${isActive ? 'active' : ''}" data-cat="${cat.name}" data-id="${cat.id}" type="button" aria-label="Open ${cat.name} websites">
           <div class="category-rect-left">
             <div class="category-rect-logo-wrap">
@@ -2456,7 +2457,45 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </button>
       `;
-    }).join('');
+
+      // Inject Native Banner after the 3rd category
+      if (index === 2) {
+        catHtml += `<div class="ad-section-container in-list-ad" id="in-list-ad-1" style="padding: 12px; margin: 8px 0; background: #121214; border-radius: 16px;"></div>`;
+      }
+      
+      // Inject regular Banner after the 6th category
+      if (index === 5) {
+        catHtml += `<div class="ad-section-container in-list-ad" id="in-list-ad-2" style="padding: 12px; margin: 8px 0; background: #121214; border-radius: 16px; display: flex; justify-content: center;"></div>`;
+      }
+    });
+    
+    categoriesRectContainer.innerHTML = catHtml;
+
+    // Load ads into the injected placeholders using DOM manipulation
+    setTimeout(() => {
+      const adContainer1 = document.getElementById('in-list-ad-1');
+      if (adContainer1 && !adContainer1.hasChildNodes()) {
+        const nativeAd = document.createElement('div');
+        nativeAd.id = 'container-a6bac149b9b5065d9c39dd39421f6de6';
+        adContainer1.appendChild(nativeAd);
+        const script1 = document.createElement('script');
+        script1.async = true;
+        script1.dataset.cfasync = 'false';
+        script1.src = 'https://pl31181519.profitableratecpmnetwork.com/a6bac149b9b5065d9c39dd39421f6de6/invoke.js';
+        adContainer1.appendChild(script1);
+      }
+
+      const adContainer2 = document.getElementById('in-list-ad-2');
+      if (adContainer2 && !adContainer2.hasChildNodes()) {
+        const scriptSetup = document.createElement('script');
+        scriptSetup.type = 'text/javascript';
+        scriptSetup.innerHTML = `atOptions = { 'key' : '81dee46bfffc21d377b1fd7ad6bf6cba', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };`;
+        const script2 = document.createElement('script');
+        script2.src = 'https://www.highrevenueformat.com/81dee46bfffc21d377b1fd7ad6bf6cba/invoke.js';
+        adContainer2.appendChild(scriptSetup);
+        adContainer2.appendChild(script2);
+      }
+    }, 100);
 
     categoriesRectContainer.querySelectorAll('.category-rect-box').forEach(box => {
       box.addEventListener('click', () => {
@@ -3595,7 +3634,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==================== GITHUB VERSION CONTROL & UPDATE NOTIFIER ====================
-  const APP_VERSION = '1.2.0';
+  const APP_VERSION = '1.3.0';
   const GITHUB_REPO = 'Gaurav1000m/GT-pro';
   const GITHUB_RELEASES_API = `https://api.github.com/repos/${GITHUB_REPO}/releases/latest`;
   const updateModal = document.getElementById('app-update-modal');
@@ -3719,6 +3758,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ==================== ANTI-ADBLOCK / PRIVATE DNS DETECTION ====================
+  function checkAdblockStatus() {
+    // We attempt to fetch the ad domain without CORS. If the domain is totally blocked (DNS or adblocker), it will reject.
+    fetch('https://pl31181519.profitableratecpmnetwork.com', { method: 'HEAD', mode: 'no-cors', cache: 'no-store' })
+      .then(() => {
+        const overlay = document.getElementById('adblock-overlay');
+        if (overlay) {
+          overlay.style.display = 'none';
+          overlay.setAttribute('aria-hidden', 'true');
+        }
+      })
+      .catch(() => {
+        const overlay = document.getElementById('adblock-overlay');
+        if (overlay) {
+          overlay.style.display = 'flex';
+          overlay.setAttribute('aria-hidden', 'false');
+        }
+      });
+  }
+  
+  setInterval(checkAdblockStatus, 8000);
+  setTimeout(checkAdblockStatus, 1500);
   // ==================== NO INTERNET CONNECTION HANDLER ====================
   const noInternetScreen = document.getElementById('no-internet-screen');
   const noInternetRetryBtn = document.getElementById('no-internet-retry-btn');

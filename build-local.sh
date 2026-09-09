@@ -42,6 +42,9 @@ npm install
 
 echo "Syncing Capacitor..."
 rm -rf android/capacitor-cordova-android-plugins/cordova.variables.gradle
+rm -rf www
+mkdir -p www
+cp -r index.html style.css app.js assets logo.png empty-library.json www/
 npx cap sync android
 
 echo "=== 5. Building the APK ==="
