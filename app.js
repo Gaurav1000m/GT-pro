@@ -2511,7 +2511,7 @@ document.addEventListener('DOMContentLoaded', () => {
             onerror="this.onerror=null; this.src='${fallbackLogo}';"
           />
         </div>
-        <a class="allapps-visit-btn" href="${item.url}" rel="noopener noreferrer">Visit Now</a>
+        <a class="allapps-visit-btn" href="${item.url}" target="_blank" rel="noopener noreferrer">Visit Now</a>
       </article>
     `;
   }
@@ -3107,30 +3107,33 @@ document.addEventListener('DOMContentLoaded', () => {
     saveAppStateBeforeNavigation();
   }
 
-  // ==================== IN-APP BROWSER (SAME TAB NAVIGATION) ====================
-  // Opens the URL in the SAME WebView tab — no external browser, no iframe, no overlay.
-  // State is saved to localStorage so it survives the origin change.
-  // Pressing Android back returns to the app and restores the previous screen.
+  // ==================== IN-APP BROWSER ====================
+  // On Android (Capacitor APK): Java's MainActivity intercepts ALL external URL
+  // navigation via shouldOverrideUrlLoading() and shows them in a native in-app
+  // browser overlay — so we just do window.location.href here.
+  //
+  // On plain web browser: we use window.open('_blank') so the app stays alive.
   function openInAppBrowser(url) {
     if (!url) return;
 
-    // Save full app state to both storages before navigating away
-    try {
-      const appState = {
-        screen: currentActiveScreen || 'home',
-        category: currentSelectedCategory || '',
-        searchQuery: searchInput ? searchInput.value.trim() : '',
-        scrollY: window.scrollY || document.documentElement.scrollTop || 0,
-        timestamp: Date.now()
-      };
-      const stateStr = JSON.stringify(appState);
-      sessionStorage.setItem('studyWithGauravLastState', stateStr);
-      localStorage.setItem('gt_last_app_state', stateStr);       // survives origin change
-      localStorage.setItem('gt_splash_shown', 'true');            // don't replay splash on return
-    } catch (e) {}
+    // If running inside Capacitor Android/iOS native wrapper:
+    // The Java/Swift layer intercepts shouldOverrideUrlLoading and shows the
+    // URL in a custom in-app WebView overlay. Just navigate the current frame.
+    if (window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()) {
+      window.location.href = url;
+      return;
+    }
 
-    // Navigate the current WebView tab directly to the URL
-    window.location.href = url;
+    // For plain web browser: open in a new tab so the app stays open
+    try {
+      const newWin = window.open(url, '_blank', 'noopener,noreferrer');
+      if (!newWin || newWin.closed || typeof newWin.closed === 'undefined') {
+        // Popup was blocked — navigate current tab as fallback
+        window.location.href = url;
+      }
+    } catch (e) {
+      window.location.href = url;
+    }
   }
 
 
@@ -3294,7 +3297,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Save state on page navigation or tab close
+  // Save state on page navigation or tab close (do NOT set gt_splash_shown here — it prevents splash replay)
   window.addEventListener('beforeunload', saveAppStateBeforeNavigation);
   window.addEventListener('pagehide', saveAppStateBeforeNavigation);
 
