@@ -3595,7 +3595,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==================== GITHUB VERSION CONTROL & UPDATE NOTIFIER ====================
-  const APP_VERSION = '1.0.0';
+  const APP_VERSION = '1.2.0';
   const GITHUB_REPO = 'Gaurav1000m/GT-pro';
   const GITHUB_RELEASES_API = `https://api.github.com/repos/${GITHUB_REPO}/releases/latest`;
   const updateModal = document.getElementById('app-update-modal');
@@ -3640,6 +3640,10 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Compare latest release version with APP_VERSION
       if (compareVersions(latestTag, APP_VERSION) > 0) {
+        const ignoredVersion = localStorage.getItem('ignored_update_version');
+        if (!isManual && ignoredVersion === latestTag) {
+          return; // User already chose to ignore this specific update version
+        }
         // Find apk asset if available, otherwise fall back to release page
         let apkDownloadUrl = release.html_url;
         if (release.assets && release.assets.length > 0) {
@@ -3662,6 +3666,7 @@ document.addEventListener('DOMContentLoaded', () => {
           };
         }
         if (updateModal) {
+          updateModal.dataset.version = latestTag;
           updateModal.classList.add('active');
           updateModal.setAttribute('aria-hidden', 'false');
         }
@@ -3688,6 +3693,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (updateLaterBtn) {
     updateLaterBtn.addEventListener('click', () => {
       if (updateModal) {
+        if (updateModal.dataset.version) {
+          localStorage.setItem('ignored_update_version', updateModal.dataset.version);
+        }
         updateModal.classList.remove('active');
         updateModal.setAttribute('aria-hidden', 'true');
       }

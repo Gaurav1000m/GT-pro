@@ -5340,3 +5340,42 @@ html:not([data-theme="light"]) .allapps-card:hover .allapps-visit-btn {
   transform: translateY(-9999px) !important;
 }
 
+/* ==================== AD CONTAINER STYLES (UPPER, MIDDLE, LOWER) ==================== */
+.ad-section-container {
+  width: 100%;
+  margin: 12px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 6px 0;
+  box-sizing: border-box;
+}
+
+.ad-section-container.ad-upper {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.ad-section-container.ad-middle {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.ad-section-container.ad-lower {
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.ad-section-container iframe {
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+
+

@@ -137,10 +137,12 @@ public class MainActivity extends BridgeActivity {
         webView.setWebViewClient(new BridgeWebViewClient(getBridge()) {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                String url = request.getUrl().toString();
-                if (isExternalUrl(url)) {
-                    openInAppBrowser(url);
-                    return true;
+                if (request.isForMainFrame()) {
+                    String url = request.getUrl().toString();
+                    if (isExternalUrl(url)) {
+                        openInAppBrowser(url);
+                        return true;
+                    }
                 }
                 return super.shouldOverrideUrlLoading(view, request);
             }
@@ -275,6 +277,8 @@ public class MainActivity extends BridgeActivity {
         ws.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         ws.setCacheMode(WebSettings.LOAD_DEFAULT);
         ws.setMediaPlaybackRequiresUserGesture(false);
+        ws.setSupportMultipleWindows(true);
+        ws.setJavaScriptCanOpenWindowsAutomatically(true);
 
         // Spoof UA so sites don't block Android WebView
         String ua = ws.getUserAgentString();
@@ -329,6 +333,27 @@ public class MainActivity extends BridgeActivity {
                 String domain = extractDomain(view.getUrl());
                 if (toolbarTitle != null)
                     toolbarTitle.setText(domain.isEmpty() ? title : domain);
+            }
+
+            @Override
+            public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, android.os.Message resultMsg) {
+                WebView newWebView = new WebView(view.getContext());
+                newWebView.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                        inAppWebView.loadUrl(request.getUrl().toString());
+                        return true;
+                    }
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        inAppWebView.loadUrl(url);
+                        return true;
+                    }
+                });
+                WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
+                transport.setWebView(newWebView);
+                resultMsg.sendToTarget();
+                return true;
             }
         });
 
